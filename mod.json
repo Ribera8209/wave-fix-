@@ -1,0 +1,21 @@
+{
+	"geode": "5.0.0",
+	"gd": {
+		"win": "2.209",
+		"android": "2.209",
+		"mac": "2.209"
+	},
+	"id": "shaq.wave-recto",
+	"name": "Wave Recto",
+	"version": "v1.0.0",
+	"developer": "Shaq",
+	"description": "El wave siempre va recto, sin importar cómo des clic.",
+	"settings": {
+		"activado": {
+			"name": "Activado",
+			"description": "El wave ignora tus clics y vuela en línea recta.",
+			"type": "bool",
+			"default": true
+		}
+	}
+}
