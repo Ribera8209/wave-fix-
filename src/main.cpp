@@ -3,16 +3,47 @@
 
 using namespace geode::prelude;
 
-// El wave sube al mantener y baja al soltar porque updateJump le pone
-// velocidad vertical. Después de que el juego la calcula, la ponemos en 0:
-// así el wave avanza recto sin importar los clics.
+// Tecla para prender/apagar el mod
+$on_mod(Loaded) {
+	listenForKeybindSettingPresses("tecla", [](Keybind const&, bool down, bool repeat, double) {
+		if (!down || repeat) return false;
+
+		auto mod = Mod::get();
+		bool nuevo = !mod->getSettingValue<bool>("activado");
+		mod->setSettingValue<bool>("activado", nuevo);
+
+		if (mod->getSettingValue<bool>("aviso")) {
+			Notification::create(
+				nuevo ? "Wave Recto: ON" : "Wave Recto: OFF",
+				nuevo ? NotificationIcon::Success : NotificationIcon::Info
+			)->show();
+		}
+		return false;
+	});
+}
+
 class $modify(WaveRecto, PlayerObject) {
 	void updateJump(float dt) {
 		PlayerObject::updateJump(dt);
 
 		if (!m_isDart) return;
-		if (!Mod::get()->getSettingValue<bool>("activado")) return;
+		auto mod = Mod::get();
+		if (!mod->getSettingValue<bool>("activado")) return;
 
-		m_yVelocity = 0;
+		auto modo = mod->getSettingValue<std::string>("modo");
+
+		if (modo == "Recto, sube al mantener") {
+			// Al soltar el wave baja (velocidad negativa): lo dejamos recto.
+			if (m_yVelocity < 0) m_yVelocity = 0;
+		}
+		else if (modo == "Recto, baja al mantener") {
+			// Al mantener el wave sube (velocidad positiva): lo invertimos para que baje.
+			// Al soltar baja: lo dejamos recto.
+			if (m_yVelocity > 0) m_yVelocity = -m_yVelocity;
+			else m_yVelocity = 0;
+		}
+		else {
+			m_yVelocity = 0;
+		}
 	}
 };

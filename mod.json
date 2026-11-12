@@ -7,13 +7,33 @@
 	},
 	"id": "shaq.wave-recto",
 	"name": "Wave Recto",
-	"version": "v1.0.0",
+	"version": "v1.1.0",
 	"developer": "Shaq",
-	"description": "El wave siempre va recto, sin importar cómo des clic.",
+	"description": "El wave va recto sin que tengas que mantener el ritmo.",
 	"settings": {
 		"activado": {
 			"name": "Activado",
-			"description": "El wave ignora tus clics y vuela en línea recta.",
+			"description": "Prende o apaga el mod.",
+			"type": "bool",
+			"default": true
+		},
+		"modo": {
+			"name": "Modo",
+			"description": "<cy>Siempre recto</c>: el wave nunca sube ni baja, sin importar los clics.\n<cy>Recto, sube al mantener</c>: si no tocas nada va recto; mientras mantienes presionado, sube.\n<cy>Recto, baja al mantener</c>: si no tocas nada va recto; mientras mantienes presionado, baja.",
+			"type": "string",
+			"default": "Siempre recto",
+			"one-of": ["Siempre recto", "Recto, sube al mantener", "Recto, baja al mantener"]
+		},
+		"tecla": {
+			"name": "Tecla para prender/apagar",
+			"description": "Presiónala durante el nivel para prender o apagar el mod.",
+			"type": "keybind",
+			"category": "gameplay",
+			"default": "T"
+		},
+		"aviso": {
+			"name": "Mostrar aviso al cambiar",
+			"description": "Muestra un mensaje en pantalla cuando prendes o apagas el mod con la tecla.",
 			"type": "bool",
 			"default": true
 		}
