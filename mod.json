@@ -1,9 +1,9 @@
 {
-	"geode": "5.0.0",
+	"geode": "6.0.0-alpha.1",
 	"gd": {
-		"win": "2.209",
-		"android": "2.209",
-		"mac": "2.209"
+		"win": "2.2091",
+		"android": "2.2091",
+		"mac": "2.2091"
 	},
 	"id": "shaq.wave-recto",
 	"name": "Wave Recto",
